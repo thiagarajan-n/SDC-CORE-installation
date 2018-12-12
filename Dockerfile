@@ -78,9 +78,9 @@ RUN mkdir /var/lib/sdc-resources && \
 
 EXPOSE 18630
 
-RUN systemctl start sdc
+# RUN systemctl start sdc
 CMD ["/usr/sbin/init"]
-RUN service sdc start
+# RUN service sdc start
 # CMD ["/bin/bash", “service sdc start”]
 
 # RUN chkconfig --add sdc
