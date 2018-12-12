@@ -18,9 +18,9 @@ echo 'list unzipping'
 
 # cp -R /opt/local/streamsets-datacollector-3.6.1/etc/* /etc/sdc
 
-cp /opt/local/streamsets-datacollector-3.6.1/systemd/sdc.service /etc/systemd/system/sdc.service
-cp /opt/local/streamsets-datacollector-3.6.1/systemd/sdc.socket /etc/systemd/system/sdc.socket
+cp /opt/local/streamsets-datacollector-3.6.0/systemd/sdc.service /etc/systemd/system/sdc.service
+cp /opt/local/streamsets-datacollector-3.6.0/systemd/sdc.socket /etc/systemd/system/sdc.socket
 
-cp -R /opt/local/streamsets-datacollector-3.6.1/etc/* /etc/sdc
+cp -R /opt/local/streamsets-datacollector-3.6.0/etc/* /etc/sdc
 ls /etc/sdc
 
