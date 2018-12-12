@@ -1,18 +1,39 @@
 FROM c7-systemd:latest
 # FROM centos:latest
 # ENV container docker
-RUN yum update -y && \
-yum install -y wget && \
-yum install -y java-1.8.0-openjdk java-1.8.0-openjdk-devel && \
-yum clean all
+# RUN yum update -y && \
+# yum install -y wget && \
+# yum install -y java-1.8.0-openjdk java-1.8.0-openjdk-devel && \
+# yum clean all
 
-# Set environment variables.
-ENV HOME /root
+# # Set environment variables.
+# ENV HOME /root
+# # Set environment
+# ENV JAVA_HOME /opt/jdk
+# ENV PATH ${PATH}:${JAVA_HOME}/bin
+# # Define working directory.
+# WORKDIR /root
+ENV JAVA_VERSION_MAJOR 8
+ENV JAVA_VERSION_MINOR 191
+ENV JAVA_VERSION_BUILD 12
+ENV JAVA_PACKAGE server-jre
+ENV JAVA_SHA256_SUM 8d6ead9209fd2590f3a8778abbbea6a6b68e02b8a96500e2e77eabdbcaaebcae
+ENV JAVA_URL_ELEMENT 2787e4a523244c269598db4e85c51e0c
+
+# Download and unarchive Java
+RUN apk add --update curl && \
+  mkdir -p /opt && \
+  curl -jkLH "Cookie: oraclelicense=accept-securebackup-cookie" -o java.tar.gz\
+    http://download.oracle.com/otn-pub/java/jdk/${JAVA_VERSION_MAJOR}u${JAVA_VERSION_MINOR}-b${JAVA_VERSION_BUILD}/${JAVA_URL_ELEMENT}/${JAVA_PACKAGE}-${JAVA_VERSION_MAJOR}u${JAVA_VERSION_MINOR}-linux-x64.tar.gz && \
+  echo "$JAVA_SHA256_SUM  java.tar.gz" | sha256sum -c - && \
+  gunzip -c java.tar.gz | tar -xf - -C /opt && rm -f java.tar.gz && \
+  ln -s /opt/jdk1.${JAVA_VERSION_MAJOR}.0_${JAVA_VERSION_MINOR} /opt/jdk && \
+  apk del curl && \
+  rm -rf /var/cache/apk/*
+
 # Set environment
 ENV JAVA_HOME /opt/jdk
 ENV PATH ${PATH}:${JAVA_HOME}/bin
-# Define working directory.
-WORKDIR /root
 
 # Define default command.
 
