@@ -80,6 +80,7 @@ EXPOSE 18630
 
 # RUN systemctl start sdc
 CMD ["/usr/sbin/init"]
+CMD ["sdc"]
 # RUN service sdc start
 # CMD ["/bin/bash", “service sdc start”]
 
