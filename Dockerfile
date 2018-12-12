@@ -21,7 +21,7 @@ ENV JAVA_SHA256_SUM 8d6ead9209fd2590f3a8778abbbea6a6b68e02b8a96500e2e77eabdbcaae
 ENV JAVA_URL_ELEMENT 2787e4a523244c269598db4e85c51e0c
 
 # Download and unarchive Java
-RUN apk add --update curl && \
+RUN apt-get add --update curl && \
   mkdir -p /opt && \
   curl -jkLH "Cookie: oraclelicense=accept-securebackup-cookie" -o java.tar.gz\
     http://download.oracle.com/otn-pub/java/jdk/${JAVA_VERSION_MAJOR}u${JAVA_VERSION_MINOR}-b${JAVA_VERSION_BUILD}/${JAVA_URL_ELEMENT}/${JAVA_PACKAGE}-${JAVA_VERSION_MAJOR}u${JAVA_VERSION_MINOR}-linux-x64.tar.gz && \
