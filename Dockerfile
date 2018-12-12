@@ -8,7 +8,9 @@ yum clean all
 
 # Set environment variables.
 ENV HOME /root
-
+# Set environment
+ENV JAVA_HOME /opt/jdk
+ENV PATH ${PATH}:${JAVA_HOME}/bin
 # Define working directory.
 WORKDIR /root
 
@@ -37,10 +39,10 @@ RUN mkdir /etc/sdc
 RUN chgrp -R 0 /etc/sdc && \
     chmod -R g=u /etc/sdc
 
-COPY sdc.tgz /tmp/sdc.tgz
+# COPY sdc.tgz /tmp/sdc.tgz
 RUN /tmp/run_config.sh
 
-
+RUN ls /opt/local
 
 # ARG SDC_USER=sdc
 
