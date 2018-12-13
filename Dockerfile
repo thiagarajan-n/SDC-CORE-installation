@@ -1,4 +1,7 @@
-FROM c7-systemd:latest
+
+FROM alpine:3.6
+LABEL maintainer="Adam Kunicki <adam@streamsets.com>"
+# FROM c7-systemd:latest
 # FROM centos:latest
 # ENV container docker
 # RUN yum update -y && \
@@ -21,7 +24,7 @@ ENV JAVA_SHA256_SUM 8d6ead9209fd2590f3a8778abbbea6a6b68e02b8a96500e2e77eabdbcaae
 ENV JAVA_URL_ELEMENT 2787e4a523244c269598db4e85c51e0c
 
 # Download and unarchive Java
-RUN apt-get add --update curl && \
+RUN apk add --update curl && \
   mkdir -p /opt && \
   curl -jkLH "Cookie: oraclelicense=accept-securebackup-cookie" -o java.tar.gz\
     http://download.oracle.com/otn-pub/java/jdk/${JAVA_VERSION_MAJOR}u${JAVA_VERSION_MINOR}-b${JAVA_VERSION_BUILD}/${JAVA_URL_ELEMENT}/${JAVA_PACKAGE}-${JAVA_VERSION_MAJOR}u${JAVA_VERSION_MINOR}-linux-x64.tar.gz && \
@@ -76,7 +79,7 @@ RUN chmod g=u /etc/passwd
 
 # COPY /opt/local/systemd/sdc.socket /etc/systemd/system/sdc.socket
 
-# RUN systemctl daemon-reload
+RUN systemctl daemon-reload
 
 RUN systemctl enable sdc
 
@@ -99,10 +102,10 @@ RUN mkdir /var/lib/sdc-resources && \
 
 EXPOSE 18630
 
-# RUN systemctl start sdc
-CMD ["/usr/sbin/init"]
-CMD ["sdc"]
-# RUN service sdc start
+RUN systemctl start sdc
+# CMD ["/usr/sbin/init"]
+# CMD ["sdc"]
+RUN service sdc start
 # CMD ["/bin/bash", “service sdc start”]
 
-# RUN chkconfig --add sdc
+RUN chkconfig --add sdc
